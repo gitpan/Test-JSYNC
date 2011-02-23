@@ -1,0 +1,14 @@
+Build.PL
+Changes
+INSTALL
+lib/Test/JSYNC.pm
+LICENSE
+MANIFEST			This list of files
+META.yml
+README
+t/00-load.t
+t/json.t
+t/jsync.t
+xt/author/kwalitee.t
+xt/author/pod-coverage.t
+xt/author/pod.t
