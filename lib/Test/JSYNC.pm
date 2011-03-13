@@ -8,14 +8,18 @@ use Carp;
 use JSYNC;
 use Test::Differences;
 
-our $VERSION = '0.01';
-our @EXPORT  = qw( is_valid_jsync jsync_is );
+our $VERSION   = '0.02';
+our @EXPORT    = qw( jsync_ok jsync_is );
+our @EXPORT_OK = qw( is_valid_jsync is_jsync );
 
-sub is_valid_jsync ($;$) {
+*is_valid_jsync = \&jsync_ok;
+*is_jsync       = \&jsync_is;
+
+sub jsync_ok ($;$) {
     my ($input, $test_name) = @_;
     my $test = __PACKAGE__->builder;
 
-    croak 'usage: is_valid_jsync(input, test_name)'
+    croak 'usage: jsync_ok(input, test_name)'
         if !defined $input;
 
     eval { JSYNC::load($input) };
@@ -66,7 +70,7 @@ Test::JSYNC - Test JSYNC data
 
 =head1 VERSION
 
-This document describes Test::JSYNC version 0.01.
+This document describes Test::JSYNC version 0.02.
 
 =cut
 
@@ -74,8 +78,8 @@ This document describes Test::JSYNC version 0.01.
 
    use Test::JSYNC;
 
-   is_valid_jsync $jsync,                  'jsync is well formed';
-   jsync_is       $jsync, $expected_jsync, 'jsync matches what we expected';
+   jsync_ok $jsync,                  'jsync is well formed';
+   jsync_is $jsync, $expected_jsync, 'jsync matches what we expected';
 
 =head1 DESCRIPTION
 
@@ -90,11 +94,14 @@ doing."
 
 =head1 EXPORTED TESTS
 
-=head2 is_valid_jsync
+=head2 jsync_ok
 
 Test passes if the string passed is valid JSYNC.
 
-   is_valid_jsync $jsync, 'jsync is well formed';
+   jsync_ok $jsync, 'jsync is well formed';
+
+C<is_valid_jsync> is provided as an alternative to C<jsync_ok> using the same
+naming convention as L<Test::JSON> but is not exported by default.
 
 =head2 jsync_is
 
@@ -121,16 +128,17 @@ structures did not match.  For example:
     |   7|}                          |}                          |
     +----+---------------------------+---------------------------+
 
+C<is_jsync> is provided as an alternative to C<jsync_is> using the same naming
+convention as L<Test::JSON> but is not exported by default.
+
 =head1 SEE ALSO
 
 This module uses L<JSYNC> and L<Test::Differences>, and is based on
 L<Test::JSON>.
 
-=head1 AUTHORS
+=head1 AUTHOR
 
 Nick Patch <patch@cpan.org>
-
-Curtis "Ovid" Poe <ovid@cpan.org>
 
 =head1 ACKNOWLEDGEMENTS
 

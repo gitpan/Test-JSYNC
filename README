@@ -2,13 +2,13 @@ NAME
     Test::JSYNC - Test JSYNC data
 
 VERSION
-    This document describes Test::JSYNC version 0.01.
+    This document describes Test::JSYNC version 0.02.
 
 SYNOPSIS
        use Test::JSYNC;
 
-       is_valid_jsync $jsync,                  'jsync is well formed';
-       jsync_is       $jsync, $expected_jsync, 'jsync matches what we expected';
+       jsync_ok $jsync,                  'jsync is well formed';
+       jsync_is $jsync, $expected_jsync, 'jsync matches what we expected';
 
 DESCRIPTION
     JSON YAML Notation Coding (JSYNC) is an extension of JSON that can
@@ -21,10 +21,13 @@ DESCRIPTION
     know what you are doing."
 
 EXPORTED TESTS
-  is_valid_jsync
+  jsync_ok
     Test passes if the string passed is valid JSYNC.
 
-       is_valid_jsync $jsync, 'jsync is well formed';
+       jsync_ok $jsync, 'jsync is well formed';
+
+    "is_valid_jsync" is provided as an alternative to "jsync_ok" using the
+    same naming convention as Test::JSON but is not exported by default.
 
   jsync_is
     Test passes if the two JSYNC strings are valid JSYNC and evaluate to the
@@ -50,14 +53,15 @@ EXPORTED TESTS
         |   7|}                          |}                          |
         +----+---------------------------+---------------------------+
 
+    "is_jsync" is provided as an alternative to "jsync_is" using the same
+    naming convention as Test::JSON but is not exported by default.
+
 SEE ALSO
     This module uses JSYNC and Test::Differences, and is based on
     Test::JSON.
 
-AUTHORS
+AUTHOR
     Nick Patch <patch@cpan.org>
-
-    Curtis "Ovid" Poe <ovid@cpan.org>
 
 ACKNOWLEDGEMENTS
     This module was forked from Test::JSON by Curtis "Ovid" Poe.
